@@ -14,8 +14,7 @@ const Form = () => {
         body: "",
         isDone: false
     })
-    console.log(inputTodo)
-
+    
     const onChange = (e) => {
         const { value, name } = e.target
         // console.log(value,name)
@@ -27,7 +26,6 @@ const Form = () => {
         e.preventDefault();
         if (inputTodo.title.trim() === "" || inputTodo.body.trim() === "") return alert('텍스트를 입력 해주세요.');
         setInputTodo({...inputTodo, title:'', body:''})
-        console.log(inputTodo)
     }
 
     return(

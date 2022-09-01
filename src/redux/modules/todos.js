@@ -6,6 +6,7 @@ export const __getTodos = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const data = await axios.get("http://localhost:3001/todos");
+            console.log(data)
             return thunkAPI.fulfillWithValue(data.data);
         } catch (error) {
           return thunkAPI.rejectWithValue(error);
@@ -28,20 +29,22 @@ export const todos = createSlice({
     removeTodo(state, action){
         let index = state.todos.findIndex(todo => todo.id === action.payload);
         state.todos.splice(index,1);
-        axios.patch(`http://localhost:3001/todos/${action.payload.id}`, action.payload);
+        axios.delete(`http://localhost:3001/todos/${action.payload}`, action.payload);
     },
     toggleTodo(state, action){
-        let todos = state.todos.map(todo => {
-            if(todo.id === action.payload) {
+        let todo = state.todos.map(todo => {
+            if(todo.id === action.payload.id) {
                 return {
                     ...todo,
-                    isDone: !todo.isDone
-                };
+                    isDone: !todo.isDone 
+                }
             }else {
-                return{...todo}
+                return {...todo}
             }
-        }); state.todos = todos
-        axios.patch(`http://localhost:3001/todos/${action.payload.id}`, todos)
+        }); state.todos = todo;
+        axios.patch(`http://localhost:3001/todos/${action.payload.id}`, todo.find(a=>a.id === action.payload.id))
+        console.log(todo.find(a=>a.id === action.payload.id))
+        
     },
   },
   extraReducers: {

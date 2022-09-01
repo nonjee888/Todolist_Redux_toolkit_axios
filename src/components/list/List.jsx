@@ -1,10 +1,26 @@
 import React from "react";
 import Todo from "../todo/Todo";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { __getTodos } from "../../redux/modules/todos";
 
 const List = () => {
-    const todos = useSelector((state) => state.todos.todos)
+    let dispatch = useDispatch();
+    const { isLoading, error, todos } = useSelector((state) => state.todos);
+
+    useEffect(() => {
+        dispatch(__getTodos()); 
+    }, [dispatch]);
+
+    if (isLoading) {
+        return <div>로딩중...</div>
+    }
+
+    if(error) {
+        return <div>{error.message}</div>
+    }
+
     console.log(todos) // 만들어진 배열 todo는 initialState
     return(
 

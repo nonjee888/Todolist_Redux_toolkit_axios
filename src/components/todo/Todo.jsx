@@ -14,8 +14,8 @@ const Todo = ({todo}) => {
         dispatch(removeTodo(id))
     }
 
-    const onToggle = (id) => {
-        dispatch(toggleTodo(id))
+    const onToggle = (todo) => {
+        dispatch(toggleTodo(todo))
     }
 
 
@@ -33,7 +33,7 @@ const Todo = ({todo}) => {
                 onClick = {()=>{onRemove(todo.id)}}
                 >삭제</button>
                 <button
-                onClick = {()=>{onToggle(todo.id)}}
+                onClick = {()=>{onToggle(todo)}}
                 >{todo.isDone ? "하는중":"다했음"}</button>
             </div>
 
